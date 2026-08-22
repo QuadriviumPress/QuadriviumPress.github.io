@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quadrivium Press</title>
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --muted: #5c5c5c;
+      --paper: #f7f5f0;
+      --accent: #0b3d4a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse at 20% 10%, #e8eef0 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 90%, #efe8df 0%, transparent 45%),
+        var(--paper);
+      padding: 2rem;
+    }
+    main { max-width: 36rem; text-align: center; }
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+    }
+    p {
+      margin: 0;
+      font-size: 1.125rem;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Quadrivium Press</h1>
+    <p>Open textbooks and course materials.</p>
+  </main>
+</body>
+</html>
