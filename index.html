@@ -4,193 +4,474 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quadrivium Press</title>
-  <meta name="description" content="Open textbooks and course materials from Quadrivium Press.">
+  <meta name="description" content="Open textbooks in mathematics and physics from Quadrivium Press. Free to read, search, and assign.">
+  <link rel="canonical" href="https://quadriviumpress.com/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#0c3d44">
+  <meta property="og:title" content="Quadrivium Press">
+  <meta property="og:description" content="Open textbooks in mathematics and physics. Free to read, search, and assign.">
+  <meta property="og:image" content="https://quadriviumpress.com/hero.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quadriviumpress.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Sora:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #1a1a1a;
-      --muted: #5a5a5a;
-      --line: #d4cfc4;
-      --paper: #f7f5f0;
-      --accent: #0b3d4a;
+      --ink: #10181c;
+      --paper: #eef3f4;
+      --mist: #c9d5d8;
+      --brand: #0c3d44;
+      --brass: #b08a4a;
+      --hero: #f3f6f5;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
     }
+
     * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      min-height: 100vh;
-      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
       color: var(--ink);
-      background:
-        radial-gradient(ellipse at 15% 0%, #e4eef1 0%, transparent 42%),
-        radial-gradient(ellipse at 90% 100%, #efe6da 0%, transparent 40%),
-        var(--paper);
-      padding: 3rem 1.5rem 4rem;
+      background: var(--paper);
+      font-family: Sora, "Segoe UI", sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.5;
     }
-    main {
-      max-width: 40rem;
+
+    a { color: inherit; }
+
+    .skip {
+      position: absolute;
+      left: 1rem;
+      top: -4rem;
+      z-index: 10;
+      padding: 0.5rem 0.8rem;
+      background: var(--hero);
+      color: var(--brand);
+      text-decoration: none;
+    }
+    .skip:focus { top: 1rem; }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      color: var(--hero);
+      overflow: hidden;
+    }
+
+    .hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 72% 50%;
+      transform: scale(1.08);
+      animation: settle 2.2s var(--ease) forwards;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(8, 16, 18, 0.72) 0%, rgba(8, 16, 18, 0.28) 42%, rgba(8, 16, 18, 0.08) 68%),
+        linear-gradient(180deg, transparent 38%, rgba(8, 16, 18, 0.78) 100%);
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      width: min(72rem, calc(100% - 2.5rem));
+      margin: 0 auto;
+      padding: 0 0 4.5rem;
+    }
+
+    .mark {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      width: 1.35rem;
+      height: 1.35rem;
+      margin-bottom: 1.15rem;
+      animation: rise 0.9s var(--ease) both;
+    }
+    .mark i {
+      display: block;
+      background: var(--hero);
+    }
+    .mark i:nth-child(4) { background: var(--brass); }
+
+    .brand {
+      margin: 0;
+      max-width: 14ch;
+      font-family: Fraunces, "Palatino Linotype", serif;
+      font-optical-sizing: auto;
+      font-weight: 500;
+      font-size: clamp(3.4rem, 11vw, 7.6rem);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      animation: rise 1s var(--ease) 0.08s both;
+    }
+
+    .lede {
+      margin: 1.35rem 0 0;
+      max-width: 26rem;
+      font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+      font-weight: 500;
+      line-height: 1.35;
+      animation: rise 1s var(--ease) 0.16s both;
+    }
+
+    .support {
+      margin: 0.55rem 0 0;
+      max-width: 28rem;
+      color: rgba(243, 246, 245, 0.78);
+      animation: rise 1s var(--ease) 0.22s both;
+    }
+
+    .ctas {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.25rem 1.75rem;
+      margin-top: 1.85rem;
+      animation: rise 1s var(--ease) 0.3s both;
+    }
+
+    .cta {
+      display: inline-block;
+      padding: 0.85rem 1.25rem;
+      background: var(--hero);
+      color: var(--brand);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+    }
+    .cta:hover,
+    .cta:focus-visible {
+      background: #fff;
+      outline: none;
+    }
+
+    .ghost {
+      color: var(--hero);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .ghost:hover,
+    .ghost:focus-visible {
+      color: var(--brass);
+      outline: none;
+    }
+
+    .catalog,
+    .about,
+    .foot {
+      width: min(72rem, calc(100% - 2.5rem));
       margin: 0 auto;
     }
-    header {
-      text-align: center;
-      margin-bottom: 2.75rem;
+
+    .catalog {
+      padding: 5.5rem 0 4rem;
     }
-    h1 {
-      margin: 0 0 0.55rem;
-      font-size: clamp(2.25rem, 6vw, 3.25rem);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--accent);
-      line-height: 1.1;
-    }
-    .tagline {
+
+    .catalog h2,
+    .about h2 {
       margin: 0;
-      font-size: 1.15rem;
-      line-height: 1.5;
-      color: var(--muted);
+      font-family: Fraunces, "Palatino Linotype", serif;
+      font-weight: 500;
+      font-size: clamp(2.1rem, 5vw, 3.4rem);
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--brand);
     }
-    h2 {
-      margin: 0 0 0.85rem;
-      font-size: 0.8rem;
+
+    .catalog .one-line {
+      margin: 0.65rem 0 0;
+      max-width: 32rem;
+      color: #3d4c50;
+    }
+
+    .group {
+      margin-top: 3rem;
+    }
+
+    .group h3 {
+      margin: 0 0 0.35rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--brand);
     }
-    section + section {
-      margin-top: 2rem;
-    }
-    ul {
+
+    .books {
       list-style: none;
       margin: 0;
       padding: 0;
-      border-top: 1px solid var(--line);
     }
-    li {
-      border-bottom: 1px solid var(--line);
-    }
-    a.book {
-      display: block;
-      padding: 0.95rem 0.15rem;
+
+    .books a {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 0.35rem 1.5rem;
+      align-items: baseline;
+      padding: 1.05rem 0;
       text-decoration: none;
-      color: inherit;
-      transition: color 0.15s ease, padding-left 0.15s ease;
+      background-image: linear-gradient(var(--brand), var(--brand));
+      background-repeat: no-repeat;
+      background-size: 0 2px;
+      background-position: left bottom;
+      transition: background-size 0.4s var(--ease), color 0.2s ease;
     }
-    a.book:hover,
-    a.book:focus-visible {
-      color: var(--accent);
-      padding-left: 0.35rem;
+    .books a:hover,
+    .books a:focus-visible {
+      background-size: 100% 2px;
       outline: none;
     }
-    a.book .title {
-      display: block;
-      font-size: 1.15rem;
-      line-height: 1.3;
+
+    .title {
+      font-family: Fraunces, "Palatino Linotype", serif;
+      font-size: clamp(1.2rem, 2.4vw, 1.65rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
     }
-    a.book .blurb {
-      display: block;
-      margin-top: 0.2rem;
+
+    .blurb {
+      color: #5a6a6e;
       font-size: 0.95rem;
-      line-height: 1.4;
-      color: var(--muted);
     }
-    a.book:hover .blurb,
-    a.book:focus-visible .blurb {
-      color: #4a6a72;
+
+    .books a:hover .title,
+    .books a:focus-visible .title {
+      color: var(--brand);
     }
+
+    .about-wrap {
+      background: var(--brand);
+      color: var(--paper);
+      margin-top: 2rem;
+    }
+
+    .about {
+      padding: 4.5rem 0 4.75rem;
+    }
+
+    .about h2 { color: var(--paper); }
+
+    .about p {
+      margin: 1rem 0 0;
+      max-width: 36rem;
+      font-size: 1.15rem;
+      line-height: 1.55;
+      color: rgba(238, 243, 244, 0.86);
+    }
+
     footer {
-      margin-top: 3rem;
-      text-align: center;
+      padding: 1.5rem 0 2rem;
+      background: var(--brand);
+      color: rgba(238, 243, 244, 0.7);
       font-size: 0.9rem;
-      color: var(--muted);
     }
+
+    .foot {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
     footer a {
-      color: var(--accent);
+      color: var(--paper);
+      text-decoration: none;
+    }
+    footer a:hover,
+    footer a:focus-visible {
+      color: var(--brass);
+      outline: none;
+    }
+
+    @keyframes settle {
+      to { transform: scale(1); }
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(0.85rem);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero img { object-position: 80% 40%; }
+      .hero-copy { padding-bottom: 3rem; }
+      .books a {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+      }
+      .foot { display: block; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .hero img,
+      .mark,
+      .brand,
+      .lede,
+      .support,
+      .ctas {
+        animation: none;
+        transform: none;
+        opacity: 1;
+      }
+      .books a { transition: none; }
     }
   </style>
 </head>
 <body>
+  <a class="skip" href="#catalog">Skip to catalog</a>
+
+  <header class="hero">
+    <img src="hero.jpg" alt="An open physics textbook on a slate desk, with a brass compass beside the pages." width="1536" height="1024" fetchpriority="high">
+    <div class="hero-copy">
+      <span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <h1 class="brand">Quadrivium Press</h1>
+      <p class="lede">Open textbooks, ready to teach from.</p>
+      <p class="support">Web editions of mathematics and physics books you can read, search, and share.</p>
+      <div class="ctas">
+        <a class="cta" href="#catalog">Browse the catalog</a>
+        <a class="ghost" href="https://github.com/QuadriviumPress">GitHub</a>
+      </div>
+    </div>
+  </header>
+
   <main>
-    <header>
-      <h1>Quadrivium Press</h1>
-      <p class="tagline">Open textbooks and course materials.</p>
-    </header>
+    <section class="catalog" id="catalog" aria-labelledby="catalog-heading">
+      <h2 id="catalog-heading">The catalog</h2>
+      <p class="one-line">Free to read online. Assign a chapter or a whole course.</p>
 
-    <section aria-labelledby="math-heading">
-      <h2 id="math-heading">Mathematics</h2>
-      <ul>
-        <li>
-          <a class="book" href="/mecmath-trigonometry/">
-            <span class="title">Trigonometry</span>
-            <span class="blurb">Michael Corral</span>
-          </a>
-        </li>
-        <li>
-          <a class="book" href="/differentialEquations/">
-            <span class="title">Elementary Differential Equations</span>
-            <span class="blurb">William F. Trench</span>
-          </a>
-        </li>
-      </ul>
+      <div class="group">
+        <h3>Mathematics</h3>
+        <ul class="books">
+          <li>
+            <a href="/calculus-bundle/">
+              <span class="title">Calculus</span>
+              <span class="blurb">OpenStax, volumes 1–3</span>
+            </a>
+          </li>
+          <li>
+            <a href="/differentialEquations/">
+              <span class="title">Elementary Differential Equations</span>
+              <span class="blurb">William F. Trench</span>
+            </a>
+          </li>
+          <li>
+            <a href="/mecmath-trigonometry/">
+              <span class="title">Trigonometry</span>
+              <span class="blurb">Michael Corral</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="group">
+        <h3>Physics</h3>
+        <ul class="books">
+          <li>
+            <a href="/astronomy/">
+              <span class="title">Astronomy 2e</span>
+              <span class="blurb">OpenStax</span>
+            </a>
+          </li>
+          <li>
+            <a href="/AtomicPhysicsForEveryone/">
+              <span class="title">Atomic Physics for Everyone</span>
+              <span class="blurb">Will Raven</span>
+            </a>
+          </li>
+          <li>
+            <a href="/college-physics-textbook/">
+              <span class="title">College Physics</span>
+              <span class="blurb">Algebra-based introductory text</span>
+            </a>
+          </li>
+          <li>
+            <a href="/college-physics-bundle/">
+              <span class="title">College Physics 2e</span>
+              <span class="blurb">OpenStax</span>
+            </a>
+          </li>
+          <li>
+            <a href="/ElectromagneticsVolOneTextbook/">
+              <span class="title">Electromagnetics, Volume 1</span>
+              <span class="blurb">Steven W. Ellingson</span>
+            </a>
+          </li>
+          <li>
+            <a href="/EnergyAndHumanAmbitions/">
+              <span class="title">Energy and Human Ambitions on a Finite Planet</span>
+              <span class="blurb">Tom Murphy</span>
+            </a>
+          </li>
+          <li>
+            <a href="/opticsTextbook/">
+              <span class="title">Optics</span>
+              <span class="blurb">Undergraduate optics</span>
+            </a>
+          </li>
+          <li>
+            <a href="/PrinciplesOfMechanics/">
+              <span class="title">Principles of Mechanics</span>
+              <span class="blurb">Salma Alrasheed</span>
+            </a>
+          </li>
+          <li>
+            <a href="/QuantumComputingForTheQuantumCurious/">
+              <span class="title">Quantum Computing for the Quantum Curious</span>
+              <span class="blurb">Hughes, Isaacson, Perry, Sun, and Turner</span>
+            </a>
+          </li>
+          <li>
+            <a href="/UniversityPhysicsIClassicalMechanics/">
+              <span class="title">University Physics I: Classical Mechanics</span>
+              <span class="blurb">Julio Gea-Banacloche</span>
+            </a>
+          </li>
+          <li>
+            <a href="/university-physics-bundle/">
+              <span class="title">University Physics</span>
+              <span class="blurb">OpenStax, volumes 1–3</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </section>
-
-    <section aria-labelledby="physics-heading">
-      <h2 id="physics-heading">Physics</h2>
-      <ul>
-        <li>
-          <a class="book" href="/AtomicPhysicsForEveryone/">
-            <span class="title">Atomic Physics for Everyone</span>
-            <span class="blurb">Will Raven</span>
-          </a>
-        </li>
-        <li>
-          <a class="book" href="/college-physics-textbook/">
-            <span class="title">College Physics</span>
-          </a>
-        </li>
-        <li>
-          <a class="book" href="/ElectromagneticsVolOneTextbook/">
-            <span class="title">Electromagnetics, Volume 1</span>
-          </a>
-        </li>
-        <li>
-          <a class="book" href="/EnergyAndHumanAmbitions/">
-            <span class="title">Energy and Human Ambitions on a Finite Planet</span>
-            <span class="blurb">Tom Murphy</span>
-          </a>
-        </li>
-        <li>
-          <a class="book" href="/opticsTextbook/">
-            <span class="title">Optics</span>
-          </a>
-        </li>
-        <li>
-          <a class="book" href="/PrinciplesOfMechanics/">
-            <span class="title">Principles of Mechanics</span>
-            <span class="blurb">Salma Alrasheed</span>
-          </a>
-        </li>
-        <li>
-          <a class="book" href="/QuantumComputingForTheQuantumCurious/">
-            <span class="title">Quantum Computing for the Quantum Curious</span>
-            <span class="blurb">Hughes et al.</span>
-          </a>
-        </li>
-        <li>
-          <a class="book" href="/UniversityPhysicsIClassicalMechanics/">
-            <span class="title">University Physics I: Classical Mechanics</span>
-            <span class="blurb">Julio Gea-Banacloche</span>
-          </a>
-        </li>
-        <li>
-          <a class="book" href="/university-physics-bundle/">
-            <span class="title">University Physics Bundle</span>
-          </a>
-        </li>
-      </ul>
-    </section>
-
-    <footer>
-      <a href="https://github.com/QuadriviumPress">GitHub</a>
-    </footer>
   </main>
+
+  <section class="about-wrap" aria-labelledby="about-heading">
+    <div class="about">
+      <h2 id="about-heading">A press for the open shelf</h2>
+      <p>We turn open-access mathematics and physics textbooks into durable web editions: searchable, readable on a phone, and free to assign. The words stay with their authors; we keep the pages in print on the web.</p>
+    </div>
+    <footer>
+      <div class="foot">
+        <span>Quadrivium Press</span>
+        <a href="https://github.com/QuadriviumPress">Source on GitHub</a>
+      </div>
+    </footer>
+  </section>
 </body>
 </html>
